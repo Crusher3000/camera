@@ -65,35 +65,24 @@ void callback(char* topic, byte* payload, unsigned int length) {  // Fonction de
   Serial.println();                                               // Imprime un retour à la ligne dans la console
 
   char buffer1[length+1];                                         // On crée une variable local de buffer
-  if (String(topic) == "led_red") {
-    for (int i = 0; i < length+1; i++) {
-      buffer1[i] = (char)payload[i];
-    }
+  for (int i = 0; i < length+1; i++) {
+    buffer1[i] = (char)payload[i];
+  }
+  
+  if (String(topic) == "led_red") {                               // On vérifie si c'est le bon topic
     red = atoi(buffer1);
   }
-  if (String(topic) == "led_green") {
-    for (int i = 0; i < length+1; i++) {
-      buffer1[i] = (char)payload[i];
-    }
+  if (String(topic) == "led_green") {                             // On vérifie si c'est le bon topic
     green = atoi(buffer1);
   }
-  if (String(topic) == "led_blue") {
-    for (int i = 0; i < length+1; i++) {
-      buffer1[i] = (char)payload[i];
-    }
+  if (String(topic) == "led_blue") {                              // On vérifie si c'est le bon topic
     blue = atoi(buffer1);
   }
 
-  if (String(topic) == "moteur_cam1") {
-    for (int i = 0; i < length+1; i++) {
-      buffer1[i] = (char)payload[i];
-    }
+  if (String(topic) == "moteur_cam1") {                           // On vérifie si c'est le bon topic
     sens1[0] = buffer1[0];
   }
-  if (String(topic) == "moteur_cam2") {
-    for (int i = 0; i < length+1; i++) {
-      buffer1[i] = (char)payload[i];
-    }
+  if (String(topic) == "moteur_cam2") {                           // On vérifie si c'est le bon topic
     sens2[0] = buffer1[0];
   }
 }
