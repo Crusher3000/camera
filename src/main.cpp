@@ -4,11 +4,10 @@
 #include <Adafruit_GFX.h>                                         // Bibliothèque incluant des fonctions graphique pour l'OLED
 #include <Adafruit_SSD1306.h>                                     // Bibliothèque reprenant l'ensenmbles des fonctions d'utilisation de l'OLED
 #include <PubSubClient.h>                                         // Bibliothèque fournissant des fonctions de messageries MQTT
-#include <Adafruit_NeoPixel.h>        
+#include <Adafruit_NeoPixel.h>                                    // Bibliothèque pour la gestion de ruban LEDs adressables
+#include <Adafruit_GrayOLED.h>                                    // Bibliothèque pour la gestion de l'écran OLED
 
-#include <Adafruit_GrayOLED.h>                            // Bibliothèque pour la gestion de ruban LEDs adressables
-
-//  OLED
+// OLED
 #define SCREEN_WIDTH 128                                          // Largeur en pixel de l'OLED
 #define SCREEN_HEIGHT 64                                          // Hauteur en pixel de l'OLED
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1); // Création de notre OLED SSD1306 pour communiquer avec l'I²C (SDA, SCL)
@@ -42,9 +41,9 @@ PubSubClient client(espClient);                                   // Création d
 #define LED_PIN 16
 #define LED_COUNT 15
 Adafruit_NeoPixel strip (LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-int red = 0;                                                          // Valeur de la couleur rouge du ruban led
-int green = 0;                                                        // Valeur de la couleur verte du ruban led
-int blue = 0;                                                         // Valeur de la couleur bleue du ruban led
+int red = 0;                                                      // Valeur de la couleur rouge du ruban led
+int green = 0;                                                    // Valeur de la couleur verte du ruban led
+int blue = 0;                                                     // Valeur de la couleur bleue du ruban led
 
 void printToOLED(int x, int y,  char *message){                   // Fonction affichant un message dans l'OLED à une cetraine position
   display.setCursor(x, y);                                        // On place le cursor du message aux coordonner X Y avant de l'afficher
@@ -264,8 +263,8 @@ void loop() {
     digitalWrite(motorPin2,LOW);
   }
 
-  for (int j = 0; j <= LED_COUNT; j++) {                                        // On boucle le nombre de LED(s) utilisées sur le ruban
-    strip.setPixelColor(j, red, green, blue);                                   // On défini la couleur avec les valeurs définies
+  for (int j = 0; j <= LED_COUNT; j++) {                          // On boucle le nombre de LED(s) utilisées sur le ruban
+    strip.setPixelColor(j, red, green, blue);                     // On défini la couleur avec les valeurs définies
   }
-  strip.show();                                                                 // On montre le changement (on actualise le ruban)*/
+  strip.show();                                                   // On montre le changement (on actualise le ruban)*/
 }
