@@ -38,7 +38,7 @@ const char* mqtt_server = "192.168.137.189";                      // Adresse IP 
 WiFiClient espClient;                                             // Création de "espClient" propre au client Wi-Fi
 PubSubClient client(espClient);                                   // Création d'un système de messagerie MQTT du client
 
-// RUBAN LEDS
+// RUBAN LED
 #define LED_PIN 16                                                // PIN de données du ruban LED WS2812B
 #define LED_COUNT 16                                              // Nombre de LEDs utilisées
 Adafruit_NeoPixel strip (LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
