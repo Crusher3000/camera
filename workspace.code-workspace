@@ -1,0 +1,60 @@
+{
+	"folders": [
+		{
+			"path": "..\\ESP32_CAM"
+		},
+		{
+			"name": "211125-121203-esp32cam",
+			"path": "..\\211125-121203-esp32cam"
+		},
+		{
+			"name": "TP5_BLYNK",
+			"path": "..\\TP5_BLYNK"
+		},
+		{
+			"name": "TP1B ARDUINO",
+			"path": "..\\TP1B ARDUINO"
+		},
+		{
+			"name": "TP1B_NodeMCU",
+			"path": "..\\TP1B_NodeMCU"
+		},
+		{
+			"name": "TP5 BLYNK",
+			"path": "..\\TP5 BLYNK"
+		},
+		{
+			"name": "TP2_DHT_Btn_WebSocket",
+			"path": "..\\TP2_DHT_Btn_WebSocket"
+		},
+		{
+			"name": "TP2_WerServer",
+			"path": "..\\TP2_WerServer"
+		},
+		{
+			"name": "TP4_ADAFRUIT",
+			"path": "..\\TP4_ADAFRUIT"
+		},
+		{
+			"name": "TP7_Gestion_CORE",
+			"path": "..\\TP7_Gestion_CORE"
+		},
+		{
+			"name": "TP6_Node_RED",
+			"path": "..\\TP6_Node_RED"
+		},
+		{
+			"name": "Camera_OLED_MOTOR 22-12",
+			"path": "..\\Camera_OLED_MOTOR 22-12"
+		},
+		{
+			"name": "Essaie ESP32_OLED",
+			"path": "..\\Essaie ESP32_OLED"
+		},
+		{
+			"name": "Camera_Crusher_V1",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
