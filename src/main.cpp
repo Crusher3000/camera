@@ -39,8 +39,8 @@ WiFiClient espClient;                                             // Création d
 PubSubClient client(espClient);                                   // Création d'un système de messagerie MQTT du client
 
 // RUBAN LEDS
-#define LED_PIN 16
-#define LED_COUNT 15
+#define LED_PIN 16                                                // PIN de données du ruban LED WS2812B
+#define LED_COUNT 16                                              // Nombre de LEDs utilisées
 Adafruit_NeoPixel strip (LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 int red = 0;                                                      // Valeur de la couleur rouge du ruban led
 int green = 0;                                                    // Valeur de la couleur verte du ruban led
