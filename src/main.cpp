@@ -25,8 +25,9 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1); // Création d
 #include "camera_pins.h"                                          // Importation des pins de l'ESP32-CAM en fonction du modèle choisi
 
 // MOTEUR PAS À PAS
-int motorPin1 = 13;                                               //
-int motorPin2 = 12;                                               //
+int motorPin1 = 12;                                               // PIN 1A du driver L293D du moteur de rotation (0 ou 1)
+int motorPin2 = 13;                                               // PIN 2A du driver L293D du moteur de rotation (0 ou 1)
+
 char sens1[2] = "0";                                              // Flag (set par défaut au lancement (après avec Node RED)) pour activer la rotation de la caméra dans un sens
 char sens2[2] = "0";                                              // Flag (set par défaut au lancement (après avec Node RED)) pour activer la rotation de la caméra dans l'autre sens
 
