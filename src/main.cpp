@@ -195,9 +195,9 @@ void setup() {
 #endif
 
   // RUBAN LEDS
-  strip.begin();
-  strip.show();
-  strip.setBrightness(10);
+  strip.begin();                                                  // Lancement de lu ruban LED
+  strip.show();                                                   // On montre le changement (on actualise le ruban) (donc ici ça l'éteint s'il était par hasard encore allumé)
+  strip.setBrightness(10);                                        // On défini la luminausité à 10/255
   
   // COMMUNICATION WIFI
   WiFi.begin(ssid, password);                                     // Lancement de la connexion WiFi
