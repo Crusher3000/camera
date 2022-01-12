@@ -70,20 +70,19 @@ void callback(char* topic, byte* payload, unsigned int length) {  // Fonction de
   }
 
   if (String(topic) == "led_red") {                               // On vérifie si c'est le bon topic
-    red = atoi(buffer1);
+    red = atoi(buffer1);                                          // Alors on le stocke dans la variable correspondante
   }
   if (String(topic) == "led_green") {                             // On vérifie si c'est le bon topic
-    green = atoi(buffer1);
+    green = atoi(buffer1);                                        // Alors on le stocke dans la variable correspondante
   }
   if (String(topic) == "led_blue") {                              // On vérifie si c'est le bon topic
-    blue = atoi(buffer1);
+    blue = atoi(buffer1);                                         // Alors on le stocke dans la variable correspondante
   }
-
   if (String(topic) == "moteur_cam1") {                           // On vérifie si c'est le bon topic
-    sens1[0] = buffer1[0];
+    sens1[0] = buffer1[0];                                        // Alors on le stocke dans la variable correspondante
   }
   if (String(topic) == "moteur_cam2") {                           // On vérifie si c'est le bon topic
-    sens2[0] = buffer1[0];
+    sens2[0] = buffer1[0];                                        // Alors on le stocke dans la variable correspondante
   }
 }
 
@@ -116,7 +115,7 @@ void setup() {
   Serial.setDebugOutput(true);
   Serial.println();                                               // Imprime un retour à la ligne dans la console
 
-  camera_config_t config;
+  camera_config_t config;                                         // Reprend les données du fichier qui ont défini quel pin utiliser pour le modèle de caméra choisi
   config.ledc_channel = LEDC_CHANNEL_0;
   config.ledc_timer = LEDC_TIMER_0;
   config.pin_d0 = Y2_GPIO_NUM;
@@ -226,7 +225,7 @@ void setup() {
   client.setCallback(callback);                                   // On synchronise aux messages entrant en MQTT
 
   // MOTEUR PAS A PAS
-  pinMode(motorPin1, OUTPUT);                                     //
+  pinMode(motorPin1, OUTPUT);                                     // 
   pinMode(motorPin2, OUTPUT);                                     //
 }
 
@@ -236,8 +235,7 @@ void loop() {
   }
   client.loop();
 
-  //sprintf(charsens1, "%i", sens1);
-  printToOLED(5, 5, sens1);
+  printToOLED(5, 5, sens1);                                       
   printToOLED(5, 17, sens2);
 
   if (sens1[0] == '1') {
