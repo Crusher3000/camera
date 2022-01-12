@@ -65,10 +65,10 @@ void callback(char* topic, byte* payload, unsigned int length) {  // Fonction de
   Serial.println();                                               // Imprime un retour à la ligne dans la console
 
   char buffer1[length+1];                                         // On crée une variable local de buffer
-  for (int i = 0; i < length+1; i++) {
-    buffer1[i] = (char)payload[i];
+  for (int i = 0; i < length+1; i++) {                            // On relis tous les caractères reçus sur le topic
+    buffer1[i] = (char)payload[i];                                // On enregistre tous les caractères que l'on a besoin (uniquement)
   }
-  
+
   if (String(topic) == "led_red") {                               // On vérifie si c'est le bon topic
     red = atoi(buffer1);
   }
