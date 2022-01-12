@@ -98,10 +98,10 @@ void reconnect() {                                                // Fonction ef
       client.subscribe("led_green");                              // On demande une lecture permanette asynchrone des données arrivant sur ce topic
       client.subscribe("led_blue");                               // On demande une lecture permanette asynchrone des données arrivant sur ce topic
     } else {                                                      // Si la connexion rate
-      for (int i = 0; i <= (LED_COUNT-1); i++) {
-        strip.setPixelColor(i, 0, 0, 255);
+      for (int i = 0; i <= (LED_COUNT-1); i++) {                  // On boucle le nombre de LED(s) utilisées sur le ruban
+        strip.setPixelColor(i, 0, 0, 255);                        // On défini la couleur avec une valeur fixe (ici en bleu)
       }
-      strip.show();
+      strip.show();                                               // On montre le changement (on actualise le ruban)
       Serial.print("failed, rc=");                                // On affiche qu'il y a une erreur
       Serial.print(client.state());                               // On affiche le numéro de l'erreur (état)
       Serial.println(" try again in 5 seconds");                  // On affiche comme quoi on réessaye
@@ -203,10 +203,10 @@ void setup() {
   WiFi.begin(ssid, password);                                     // Lancement de la connexion WiFi
 
   while (WiFi.status() != WL_CONNECTED) {                         // Tant que le microcontrôleur n'est pas connecté au WiFi
-    for (int i = 0; i <= (LED_COUNT-1); i++) {
-      strip.setPixelColor(i, 255, 0, 0);
+    for (int i = 0; i <= (LED_COUNT-1); i++) {                    // On boucle le nombre de LED(s) utilisées sur le ruban
+      strip.setPixelColor(i, 255, 0, 0);                          // On défini la couleur avec une valeur fixe (ici en rouge)
     }
-    strip.show();
+    strip.show();                                                 // On montre le changement (on actualise le ruban)
     delay(500);                                                   // Délai de 500ms
     Serial.print(".");                                            // Imprimme un point dans la console
   }
@@ -225,34 +225,34 @@ void setup() {
   client.setCallback(callback);                                   // On synchronise aux messages entrant en MQTT
 
   // MOTEUR PAS A PAS
-  pinMode(motorPin1, OUTPUT);                                     // 
-  pinMode(motorPin2, OUTPUT);                                     //
+  pinMode(motorPin1, OUTPUT);                                     // Défini que la pin 1A du driver L293D pour le moteur est une sortie
+  pinMode(motorPin2, OUTPUT);                                     // Défini que la pin 2A du driver L293D pour le moteur est également une sortie
 }
 
 void loop() {
-  if (!client.connected()) {
-    reconnect();
+  if (!client.connected()) {                                      // Si le client pour le MQTT en WiFi n'est pas connecté
+    reconnect();                                                  // On appelle la fonction qui demande une reconnexion
   }
-  client.loop();
+  client.loop();                                                  // Synchronisation du noeud (ESP32-CAM) au serveur MQTT
 
-  printToOLED(5, 5, sens1);                                       
-  printToOLED(5, 17, sens2);
+  printToOLED(5, 5, sens1);                                       // Affichage du sens 1 sur l'OLED
+  printToOLED(5, 17, sens2);                                      // Affichage du sens 1 sur l'OLED
 
-  if (sens1[0] == '1') {
-    digitalWrite(motorPin1,LOW);
-    digitalWrite(motorPin2,HIGH);
+  if (sens1[0] == '1') {                                          // Si le sens 1 est demandé
+    digitalWrite(motorPin2,LOW);                                  // On désactive la pin demandant la rotation dans le sens 2 du moteur
+    digitalWrite(motorPin1,HIGH);                                 // On active la pin demandant la rotation dans le sens 1 du moteur
   }
-  else if (sens2[0] == '1') {
-    digitalWrite(motorPin2,LOW);
-    digitalWrite(motorPin1,HIGH);
+  else if (sens2[0] == '1') {                                     // Si le sens 2 est demandé
+    digitalWrite(motorPin1,LOW);                                  // On désactive la pin demandant la rotation dans le sens 1 du moteur
+    digitalWrite(motorPin2,HIGH);                                 // On active la pin demandant la rotation dans le sens 2 du moteur
   }
   else {
-    digitalWrite(motorPin1,LOW);
-    digitalWrite(motorPin2,LOW);
+    digitalWrite(motorPin1,LOW);                                  // On désactive la pin demandant la rotation dans le sens 1 du moteur
+    digitalWrite(motorPin2,LOW);                                  // On désactive la pin demandant la rotation dans le sens 2 du moteur
   }
 
   for (int j = 0; j <= LED_COUNT; j++) {                          // On boucle le nombre de LED(s) utilisées sur le ruban
-    strip.setPixelColor(j, red, green, blue);                     // On défini la couleur avec les valeurs définies
+    strip.setPixelColor(j, red, green, blue);                     // On défini la couleur avec les valeurs définies (via le callback MQTT correspondant)
   }
-  strip.show();                                                   // On montre le changement (on actualise le ruban)*/
+  strip.show();                                                   // On montre le changement (on actualise le ruban)
 }
