@@ -46,6 +46,10 @@ int red = 0;                                                      // Valeur de l
 int green = 0;                                                    // Valeur de la couleur verte du ruban led
 int blue = 0;                                                     // Valeur de la couleur bleue du ruban led
 
+char* strRed;                                                      // Valeur textuelle de la couleur rouge du ruban led
+char* strGreen;                                                    // Valeur textuelle de la couleur verte du ruban led
+char* strBlue;                                                     // Valeur textuelle de la couleur bleue du ruban led
+
 void printToOLED(int x, int y,  char *message){                   // Fonction affichant un message dans l'OLED à une cetraine position
   display.setCursor(x, y);                                        // On place le cursor du message aux coordonner X Y avant de l'afficher
   display.setTextColor(WHITE,BLACK);                              // On superpose les textes si jamais en les affichants en blanc avec fond noir (pour "effacer" les données)
@@ -236,7 +240,13 @@ void loop() {
   client.loop();                                                  // Synchronisation du noeud (ESP32-CAM) au serveur MQTT
 
   printToOLED(5, 5, sens1);                                       // Affichage du sens 1 sur l'OLED
-  printToOLED(5, 17, sens2);                                      // Affichage du sens 1 sur l'OLED
+  printToOLED(5, 17, sens2);                                      // Affichage du sens 2 sur l'OLED
+  sprintf(strRed, "%3u", red);                                    // Formatage de cette couleur en char
+  sprintf(strGreen, "%3u", green);                                // Formatage de cette couleur en char
+  sprintf(strBlue, "%3u", blue);                                  // Formatage de cette couleur en char
+  printToOLED(100, 5, strRed);                                    // Affichage de la couleur rouge sur l'OLED
+  printToOLED(100, 17, strGreen);                                 // Affichage de la couleur verte sur l'OLED
+  printToOLED(100, 29, strBlue);                                  // Affichage de la couleur bleue sur l'OLED
 
   if (sens1[0] == '1') {                                          // Si le sens 1 est demandé
     digitalWrite(motorPin2,LOW);                                  // On désactive la pin demandant la rotation dans le sens 2 du moteur
