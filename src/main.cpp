@@ -46,9 +46,9 @@ int red = 0;                                                      // Valeur de l
 int green = 0;                                                    // Valeur de la couleur verte du ruban led
 int blue = 0;                                                     // Valeur de la couleur bleue du ruban led
 
-char* strRed;                                                      // Valeur textuelle de la couleur rouge du ruban led
-char* strGreen;                                                    // Valeur textuelle de la couleur verte du ruban led
-char* strBlue;                                                     // Valeur textuelle de la couleur bleue du ruban led
+char strRed[4];                                                   // Valeur textuelle de la couleur rouge du ruban led
+char strGreen[4];                                                 // Valeur textuelle de la couleur verte du ruban led
+char strBlue[4];                                                  // Valeur textuelle de la couleur bleue du ruban led
 
 void printToOLED(int x, int y,  char *message){                   // Fonction affichant un message dans l'OLED à une cetraine position
   display.setCursor(x, y);                                        // On place le cursor du message aux coordonner X Y avant de l'afficher
@@ -75,12 +75,18 @@ void callback(char* topic, byte* payload, unsigned int length) {  // Fonction de
 
   if (String(topic) == "led_red") {                               // On vérifie si c'est le bon topic
     red = atoi(buffer1);                                          // Alors on le stocke dans la variable correspondante
+    sprintf(strRed, "%3u   ", red);                               // Formatage de cette couleur en char
+    printToOLED(82, 25, strRed);
   }
   if (String(topic) == "led_green") {                             // On vérifie si c'est le bon topic
     green = atoi(buffer1);                                        // Alors on le stocke dans la variable correspondante
+    sprintf(strGreen, "%3u   ", green);                           // Formatage de cette couleur en char
+    printToOLED(82, 37, strGreen);
   }
   if (String(topic) == "led_blue") {                              // On vérifie si c'est le bon topic
     blue = atoi(buffer1);                                         // Alors on le stocke dans la variable correspondante
+    sprintf(strBlue, "%3u   ", blue);                             // Formatage de cette couleur en char
+    printToOLED(82, 49, strBlue);
   }
   if (String(topic) == "moteur_cam1") {                           // On vérifie si c'est le bon topic
     sens1[0] = buffer1[0];                                        // Alors on le stocke dans la variable correspondante
@@ -152,9 +158,9 @@ void setup() {
   }
   delay(2000);                                                    // Délais de 2 seconde
   display.clearDisplay();                                         // Nettoyage de tous les éléments graphics présents dans l'OLED
-  display.drawRoundRect(0, 0, 90, 30, 3, WHITE);                  // Creation d'un rectangle (x1, y1, largeur, hauteur, rayon)
-  display.drawRoundRect(94, 0, 33, 64, 3, WHITE);                 // Creation d'un rectangle (x1, y1, largeur, hauteur, rayon)
-  display.drawRoundRect(0, 34, 90, 30, 3, WHITE);                 // Creation d'un rectangle (x1, y1, largeur, hauteur, rayon)
+  display.drawRoundRect(0, 0, 127, 17, 3, WHITE);                 // Creation d'un rectangle (x1, y1, largeur, hauteur, rayon)
+  display.drawRoundRect(64, 19, 63, 45, 3, WHITE);                // Creation d'un rectangle (x1, y1, largeur, hauteur, rayon)
+  display.drawRoundRect(0, 19, 60, 30, 3, WHITE);                 // Creation d'un rectangle (x1, y1, largeur, hauteur, rayon)
   display.setTextSize(1);                                         // Configuration de la taille de police
   display.setTextColor(WHITE, BLACK);                             // Configuration d'écriture de blanc sur noir dans l'OLED
   
@@ -231,6 +237,16 @@ void setup() {
   // MOTEUR PAS A PAS
   pinMode(motorPin1, OUTPUT);                                     // Défini que la pin 1A du driver L293D pour le moteur est une sortie
   pinMode(motorPin2, OUTPUT);                                     // Défini que la pin 2A du driver L293D pour le moteur est également une sortie
+  printToOLED(5, 5, "16/01/2022");
+  printToOLED(100, 5, "100%");
+  printToOLED(5, 25, "Sens 1:");
+  printToOLED(5, 37, "Sens 2:");
+  printToOLED(70, 25, "R:");
+  printToOLED(70, 37, "G:");
+  printToOLED(70, 49, "B:");
+  strRed[0] = '0';
+  strGreen[0] = '0';
+  strBlue[0] = '0';
 }
 
 void loop() {
@@ -239,14 +255,8 @@ void loop() {
   }
   client.loop();                                                  // Synchronisation du noeud (ESP32-CAM) au serveur MQTT
 
-  printToOLED(5, 5, sens1);                                       // Affichage du sens 1 sur l'OLED
-  printToOLED(5, 17, sens2);                                      // Affichage du sens 2 sur l'OLED
-  sprintf(strRed, "%3u", red);                                    // Formatage de cette couleur en char
-  sprintf(strGreen, "%3u", green);                                // Formatage de cette couleur en char
-  sprintf(strBlue, "%3u", blue);                                  // Formatage de cette couleur en char
-  printToOLED(100, 5, strRed);                                    // Affichage de la couleur rouge sur l'OLED
-  printToOLED(100, 17, strGreen);                                 // Affichage de la couleur verte sur l'OLED
-  printToOLED(100, 29, strBlue);                                  // Affichage de la couleur bleue sur l'OLED
+  printToOLED(50, 25, sens1);                                     // Affichage du sens 1 sur l'OLED
+  printToOLED(50, 37, sens2);                                     // Affichage du sens 2 sur l'OLED
 
   if (sens1[0] == '1') {                                          // Si le sens 1 est demandé
     digitalWrite(motorPin2,LOW);                                  // On désactive la pin demandant la rotation dans le sens 2 du moteur
