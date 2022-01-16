@@ -50,6 +50,8 @@ char strRed[4];                                                   // Valeur text
 char strGreen[4];                                                 // Valeur textuelle de la couleur verte du ruban led
 char strBlue[4];                                                  // Valeur textuelle de la couleur bleue du ruban led
 
+char str_battery[5];
+
 void printToOLED(int x, int y,  char *message){                   // Fonction affichant un message dans l'OLED à une cetraine position
   display.setCursor(x, y);                                        // On place le cursor du message aux coordonner X Y avant de l'afficher
   display.setTextColor(WHITE,BLACK);                              // On superpose les textes si jamais en les affichants en blanc avec fond noir (pour "effacer" les données)
@@ -255,6 +257,12 @@ void loop() {
   }
   client.loop();                                                  // Synchronisation du noeud (ESP32-CAM) au serveur MQTT
 
+  if (millis()%500) {
+    int battery = analogRead(0); // lire des valeur analogie sur la pin 0
+    int battery_map = map(battery, 2000,4500,0,100); // remis à l'échelle 
+    snprintf(str_battery,5,"%u",battery_map); // convertir le int en char* dans battery_map et le mettre dans str_battery
+    printToOLED(5, 50, str_battery);                                     // Affichage du sens 2 sur l'OLED
+  }
   printToOLED(50, 25, sens1);                                     // Affichage du sens 1 sur l'OLED
   printToOLED(50, 37, sens2);                                     // Affichage du sens 2 sur l'OLED
 
