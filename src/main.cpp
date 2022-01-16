@@ -259,9 +259,10 @@ void loop() {
 
   if (millis()%500) {
     int battery = analogRead(0); // lire des valeur analogie sur la pin 0
-    int battery_map = map(battery, 2000,4500,0,100); // remis à l'échelle 
-    snprintf(str_battery,5,"%u",battery_map); // convertir le int en char* dans battery_map et le mettre dans str_battery
-    printToOLED(5, 50, str_battery);                                     // Affichage du sens 2 sur l'OLED
+    //int battery_map = map(battery, 2000,4500,0,100); // remis à l'échelle 
+    //snprintf(str_battery,5,"%u",battery_map); // convertir le int en char* dans battery_map et le mettre dans str_battery
+    sprintf(str_battery,"%u   ",battery);
+    printToOLED(5, 52, "🎮💻");                                     // Affichage du sens 2 sur l'OLED
   }
   printToOLED(50, 25, sens1);                                     // Affichage du sens 1 sur l'OLED
   printToOLED(50, 37, sens2);                                     // Affichage du sens 2 sur l'OLED
